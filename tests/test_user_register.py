@@ -45,7 +45,7 @@ class TestUserRegister(BaseCase):
         assert response_user.content.decode("utf-8") == f"The value of 'username' field is too short", \
             "Unexpected response content"
 
-    def test_create_user_with_shortName(self):
+    def test_create_user_with_longName(self):
         data = self.prepare_registratiotion_data()
         long_name = ''.join(random.choice(string.ascii_lowercase) for i in range(251))
 
