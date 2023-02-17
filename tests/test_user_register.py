@@ -59,9 +59,9 @@ class TestUserRegister(BaseCase):
     @pytest.mark.parametrize('param_name', parameterNames)
     def test_create_user_without_parameter(self, param_name):
         data = self.prepare_registratiotion_data()
-        data.update({param_name: ""})
+        data.pop(param_name, None)
 
         response_user = MyRequests.post("/user/", data=data)
         Assertions.assert_status_code(response_user, 400)
-        assert response_user.content.decode("utf-8") == f"The value of '{param_name}' field is too short", \
+        assert response_user.content.decode("utf-8") == f"The following required params are missed: {param_name}", \
             "Unexpected response content"
