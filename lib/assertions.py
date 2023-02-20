@@ -16,6 +16,13 @@ class Assertions:
             assert some_key in response_dict, f"Response doesn't have key '{some_key}'"
 
     @staticmethod
+    def assert_json_doesnt_have_key(response: Response, *key):
+        response_dict = General.check_json_format(response)
+        for some_key in key:
+            assert some_key not in response_dict, f"Response shouldn't have key '{some_key}'"
+
+
+    @staticmethod
     def assert_status_code(response: Response, expected_status_code):
         assert response.status_code == expected_status_code, \
             f"Unexpected status code! Expected: {expected_status_code}, actual: {response.status_code}"
