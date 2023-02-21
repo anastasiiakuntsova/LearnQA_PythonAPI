@@ -1,5 +1,7 @@
 import string
 import random
+
+import allure
 from requests import Response
 
 from lib.assertions import Assertions
@@ -37,18 +39,20 @@ class BaseCase:
         }
 
     def sign_up(self):
-        sign_up_data = self.prepare_registratiotion_data()
-        sign_up_response = MyRequests.post("/user/", data=sign_up_data)
-        Assertions.assert_status_code(sign_up_response, 200)
-        Assertions.assert_json_has_key(sign_up_response, Keys.id)
+        with allure.step(f"Sign up step"):
+            sign_up_data = self.prepare_registratiotion_data()
+            sign_up_response = MyRequests.post("/user/", data=sign_up_data)
+            Assertions.assert_status_code(sign_up_response, 200)
+            Assertions.assert_json_has_key(sign_up_response, Keys.id)
 
-        email = sign_up_data[Keys.email]
-        password = sign_up_data[Keys.password]
+            email = sign_up_data[Keys.email]
+            password = sign_up_data[Keys.password]
 
-        login_data = {
-            Keys.email: email,
-            Keys.password: password
-        }
+            login_data = {
+                Keys.email: email,
+                Keys.password: password
+            }
 
-        return login_data
+            return login_data
+
 
