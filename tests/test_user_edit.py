@@ -106,15 +106,16 @@ class TestUserEdit(BaseCase):
                                                                   cookies={Cookies.auth_sid: auth_sid},
                                                                   data={param_name: incorrect_value})
 
-        #        assert user_put_response_with_incorrect_user_id.text == "Auth token not supplied", "Incorrect error message"
-        #        Assertions.assert_status_code(user_put_response_with_incorrect_user_id, 400)
+        assert user_put_response_with_incorrect_user_id.text == "Auth token not supplied", "Incorrect error message"
+        Assertions.assert_status_code(user_put_response_with_incorrect_user_id, 400)
 
         response_get_user_data = MyRequests.get("/user/" + str(user_id),
                                                 headers={Headers.x_csrf_token: token},
                                                 cookies={Cookies.auth_sid: auth_sid})
 
         Assertions.assert_json_by_name(response_get_user_data, param_name, correct_value,
-                                       f"Incorrect parametr. Parametr shouldn't changed with incorrect user id and should be {correct_value}")
+                                       f"Incorrect parametr. Parametr shouldn't changed with incorrect user id and "
+                                       f"should be {correct_value}")
 
     def test_change_to_incorrect_email(self):
         correct_email = "learnqahrwlnvbhha@example.com"
