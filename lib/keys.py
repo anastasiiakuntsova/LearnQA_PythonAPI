@@ -8,3 +8,5 @@ class Keys:
     firstName = "firstName"
     lastName = "lastName"
     user_id = "user_id"
+    id = "id"
+
