@@ -82,7 +82,7 @@ class TestUserEdit(BaseCase):
     @pytest.mark.parametrize('param_name', parameterNames)
     def test_change_other_signed_in_user(self, param_name):
         data = {
-            f'{Keys.email}': "learnqahrwlnvbhha@example.com",
+            f'{Keys.email}': "learnqatpporsetnb@example.com",
             f'{Keys.password}': "123"
         }
 
@@ -118,7 +118,7 @@ class TestUserEdit(BaseCase):
                                        f"should be {correct_value}")
 
     def test_change_to_incorrect_email(self):
-        correct_email = "learnqahrwlnvbhha@example.com"
+        correct_email = "learnqatpporsetnb@example.com"
         data = {
             Keys.email: correct_email,
             Keys.password: "123"
@@ -148,7 +148,7 @@ class TestUserEdit(BaseCase):
 
     def test_incorrect_changing_first_name(self):
         data = {
-            Keys.email: "learnqahrwlnvbhha@example.com",
+            Keys.email: "learnqatpporsetnb@example.com",
             Keys.password: "123"
         }
 
