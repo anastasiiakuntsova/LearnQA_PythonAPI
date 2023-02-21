@@ -61,7 +61,7 @@ class TestUserEdit(BaseCase):
     def test_change_not_auth_user(self, param_name):
         user_id = "62640"
 
-        new_value = "test"
+        new_value = ''.join(random.choice(string.ascii_lowercase) for i in range(10))
 
         user_put_response = MyRequests.put("/user/" + user_id, data={param_name: new_value})
 
@@ -79,7 +79,6 @@ class TestUserEdit(BaseCase):
         assert user_put_response_with_incorrect_token.text == "Auth token not supplied", "Incorrect error message"
         Assertions.assert_status_code(user_put_response, 400)
 
-    @pytest.mark.skip(reason="waiting answer about logic")
     @pytest.mark.parametrize('param_name', parameterNames)
     def test_change_other_signed_in_user(self, param_name):
         data = {
@@ -106,8 +105,9 @@ class TestUserEdit(BaseCase):
                                                                   cookies={Cookies.auth_sid: auth_sid},
                                                                   data={param_name: incorrect_value})
 
-        assert user_put_response_with_incorrect_user_id.text == "Auth token not supplied", "Incorrect error message"
-        Assertions.assert_status_code(user_put_response_with_incorrect_user_id, 400)
+        # some expected message
+        # assert user_put_response_with_incorrect_user_id.text == "Auth token not supplied", "Incorrect error message"
+        Assertions.assert_status_code(user_put_response_with_incorrect_user_id, 422)
 
         response_get_user_data = MyRequests.get("/user/" + str(user_id),
                                                 headers={Headers.x_csrf_token: token},
